@@ -24,7 +24,7 @@
 
     this.life = U.default_param( options.life, 3000 );
 
-    this.elementClass = U.default_param( options.elementClass, 'pizza' );
+    this.elementClass = U.default_param( options.elementClass, 'banana' );
   };
 
   SpriteEmitter.prototype.setMessageBus = function( new_message_bus ) {

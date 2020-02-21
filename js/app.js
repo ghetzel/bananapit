@@ -1,6 +1,6 @@
 (function( globals, document ) {
 
-  var gameController = new GameController( document.getElementById('pizzapit') );
+  var gameController = new GameController( document.getElementById('bananapit') );
 
   globals.gravity = 0.2;
   globals.width = gameController.element.offsetWidth;
@@ -13,7 +13,7 @@
     .addBehavior( 'throbber', 'throbber', function() {
 
     } )
-    .addBehavior( 'gravity-effect', 'bouncing-pizza', function() {
+    .addBehavior( 'gravity-effect', 'bouncing-banana', function() {
 
       var g = globals.gravity;
       this.velocity_y += g;
@@ -23,7 +23,7 @@
         gameController.sprite_store.deleteSprite(this);
       }
     } )
-    .addBehavior( 'rotation', 'pizza', function() {
+    .addBehavior( 'rotation', 'banana', function() {
       this.distance = this.baseDistance + Math.sin(globals.gameController.ticks / 10 + this.index) * 20;
       this.index += this.modifier;
 
@@ -36,8 +36,8 @@
     } );
 
   var emitter1 = new SpriteEmitter( gameController, {
-        tags: [ 'bouncing-pizza' ],
-        elementClass: 'little-pizza',
+        tags: [ 'bouncing-banana' ],
+        elementClass: 'little-banana',
         angle: -90,
         speed: 30,
         rate: 1,
@@ -50,8 +50,8 @@
         y: globals.height - 200 } ),
 
       emitter2 = new SpriteEmitter( gameController, {
-        tags: [ 'bouncing-pizza' ],
-        elementClass: 'little-pizza2',
+        tags: [ 'bouncing-banana' ],
+        elementClass: 'little-banana2',
         angle: -90,
         speed: 30,
         rate: 1,
@@ -70,10 +70,10 @@
   gameController.addEmitter( emitter1 );
   gameController.addEmitter( emitter2 );
 
-  globals.pizzaCount = 10;
+  globals.bananaCount = 10;
 
-  function randompizzaClass() {
-    var classes = [ 'pizza1', 'pizza2', 'pizza3' ];
+  function randombananaClass() {
+    var classes = [ 'banana1', 'banana2', 'banana3' ];
     return classes[Math.round(Math.random() * classes.length)];
   }
 
@@ -81,25 +81,25 @@
       j = 0;
 
   for ( j = 0; j < 5; j++ ) {
-    var pizzaCount = globals.pizzaCount + ( j * Math.random() * 8 );
-    for ( i = 0; i < pizzaCount; i++ ) {
-      var pizza_ele = document.createElement('div'),
-          pizzaIndex = ( 2 * Math.PI ) / pizzaCount * i,
+    var bananaCount = globals.bananaCount + ( j * Math.random() * 8 );
+    for ( i = 0; i < bananaCount; i++ ) {
+      var banana_ele = document.createElement('div'),
+          bananaIndex = ( 2 * Math.PI ) / bananaCount * i,
           distance = globals.distance + 75 * j,
-          pizza = new Sprite( pizza_ele, {
-            x: globals.centerX + distance * Math.sin( pizzaIndex ),
-            y: globals.centerY + distance * Math.cos( pizzaIndex ),
-            tags: ['pizza'],
+          banana = new Sprite( banana_ele, {
+            x: globals.centerX + distance * Math.sin( bananaIndex ),
+            y: globals.centerY + distance * Math.cos( bananaIndex ),
+            tags: ['banana'],
             use_rotation: false
           });
 
-      pizza_ele.setAttribute('class', 'pizza ' + randompizzaClass());
-      pizza.index = pizzaIndex;
-      pizza.distance = distance + Math.random() * 20;
-      pizza.modifier = 0.015 + (Math.random() - 0.5) / 100;
-      pizza.baseDistance = distance;
-      pizza.setSpriteRotation( U.Math.rad2deg(pizza.index) );
-      gameController.addSprite( pizza );
+      banana_ele.setAttribute('class', 'banana ' + randombananaClass());
+      banana.index = bananaIndex;
+      banana.distance = distance + Math.random() * 20;
+      banana.modifier = 0.015 + (Math.random() - 0.5) / 100;
+      banana.baseDistance = distance;
+      banana.setSpriteRotation( U.Math.rad2deg(banana.index) );
+      gameController.addSprite( banana );
     }
   }
 
@@ -112,17 +112,17 @@
   });
 
   keyboard_driver.handle( ' ', function() {
-    gameController.message_bus.publish( 'pizza-blast' );
+    gameController.message_bus.publish( 'banana-blast' );
     emitter1.count = 0;
     emitter2.count = 0;
-    console.log('pizza blast!');
+    console.log('banana blast!');
   });
 
   gameController.element.addEventListener("touchstart", function() {
-    gameController.message_bus.publish( 'pizza-blast' );
+    gameController.message_bus.publish( 'banana-blast' );
     emitter1.count = 0;
     emitter2.count = 0;
-    console.log('pizza blast!');
+    console.log('banana blast!');
   }, false);
 
   // attach some shit to the main window
